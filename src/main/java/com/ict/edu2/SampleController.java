@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class SampleController {
@@ -58,7 +59,7 @@ public class SampleController {
     
      // 반환형이 객체 일때
      @GetMapping("/hello5")
-     public DataVO getHello5(String number) { 
+     public DataVO getHello5(@RequestParam("number") String number) { 
          DataVO dataVO = new DataVO();
 
         List<SampleVO> list = new ArrayList<>();
@@ -66,24 +67,35 @@ public class SampleController {
         SampleVO svo = new SampleVO("고길동","24");
         SampleVO svo2 = new SampleVO("희동이","3");
         SampleVO svo3 = new SampleVO("도우너","17");
-        
         list.add(svo);
         list.add(svo2);
         list.add(svo3);
 
-        if(number.equals("1")){
+        if (number.equals("1")) {
             // dataVO.setResultCode(1);
             // dataVO.setMessage("성공");
             // dataVO.setData(list);
 
             return DataVO.success(list, "성공");
-        }else{
+        } else {
             // dataVO.setResultCode(0);
             // dataVO.setMessage("실패");
             // dataVO.setData(null);
 
             return DataVO.fail(0, "실패");
         }
+     }
+
+     @PostMapping("/hi")
+     public String getHi() {
+         
+         return "hi, 안녕하세요, 방가방가";
+     }
+     
+     @PostMapping("/hi2")
+     public String[] getHi2() {
+         
+         return new String[]{"Hello", "World"};
      }
 
 }
